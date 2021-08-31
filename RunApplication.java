@@ -22,6 +22,7 @@ public class RunApplication
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setBounds(X, Y, FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setResizable(false);
+		frame.setAlwaysOnTop(true);
 		StickyNote sn_app = new StickyNote(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.getContentPane().add(sn_app);
 		frame.addWindowListener(sn_app.backEnd());

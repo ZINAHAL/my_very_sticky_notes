@@ -8,8 +8,8 @@ public class RoundedButton extends JButton
 	public RoundedButton() 
 	{
 		setBackground(Color.BLACK);
-		this.button_size = new Dimension();
-		button_size.width = button_size.height = Math.max(getPreferredSize().width, getPreferredSize().height) + 25;
+		button_size = new Dimension();
+		button_size.width = (button_size.height = Math.max(getPreferredSize().width, getPreferredSize().height) + 25);
 		setPreferredSize(button_size);
 	}
 	

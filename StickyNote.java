@@ -17,20 +17,25 @@ public class StickyNote extends JPanel
 	private DefaultStyledDocument styled_doc;
 	private JScrollPane scroll_bar;
 	private JButton color_button;
+	private JButton clear_button;
 
 	public StickyNote(int frame_width, int frame_height) 
 	{
 		this.frame_width = frame_width;
 		this.frame_height = frame_height;
-		this.user_text_area = new JTextPane();
+		user_text_area = new JTextPane();
 		user_text_area.setContentType("text/rtf");
-		this.styled_doc = (DefaultStyledDocument) user_text_area.getStyledDocument();
-		this.scroll_bar = new JScrollPane(user_text_area);		
-		scroll_bar.setPreferredSize(new Dimension(this.frame_width-15, this.frame_height-75));
-		this.color_button = new RoundedButton();
+		styled_doc = (DefaultStyledDocument) user_text_area.getStyledDocument();
+		scroll_bar = new JScrollPane(user_text_area);		
+		scroll_bar.setPreferredSize(new Dimension(frame_width-15, frame_height-115));
+		color_button = new RoundedButton();
 		controlsForTextColor();
+		clear_button = new JButton("CLEAR");
+		controlsForClearButton();
 		add(scroll_bar);
 		add(color_button);
+		add(clear_button);
+		((FlowLayout) getLayout()).setHgap(40);
 	}
 	
 	private void controlsForTextColor() 
@@ -51,10 +56,10 @@ public class StickyNote extends JPanel
 						/*
 						 * i cannot put the below above as the recomended methods will not come up
 						 */
-						color_window.setBounds(1000, 200, frame_width+30, frame_height-150);
+						color_window.setBounds(1000, 200, frame_width+30, frame_height-110);
 						color_window.setResizable(false);
 						flow_layout.setHgap(30);
-						flow_layout.setVgap(10);
+						flow_layout.setVgap(15);
 						color_window.setLayout(flow_layout);
 						color_window.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						color_window.getContentPane().add(color_chooser.getChooserPanels()[0]);
@@ -157,6 +162,24 @@ public class StickyNote extends JPanel
 	public WindowAdapter backEnd() 
 	{
 		return new UserInputHandler();
+	}
+	
+	private void controlsForClearButton()
+	{
+		clear_button.addActionListener(
+				
+				new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						try {
+							styled_doc.remove(0, styled_doc.getLength());
+						} catch(BadLocationException ble) {
+							ble.printStackTrace();
+						}
+					}
+				}
+		);
 	}
 	
 }
